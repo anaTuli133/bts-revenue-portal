@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTS-Wise Revenue Report</title>
+<link rel="stylesheet" href="/static/style.css?v=8">
+<script src="/static/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-title">
+      <span class="topbar-logo">
+        <img src="/static/images/teletalk-logo.png" alt="Teletalk">
+      </span>
+      <div>
+        <h1>BTS-Wise Revenue Report</h1>
+        <p>Live revenue breakdown by site, pulled from the data warehouse</p>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <span id="lastUpdated" class="live-pill">● Live</span>
+    </div>
+  </div>
+
+  <nav class="category-tabs" id="categoryTabs">
+    <button class="tab active" data-category="DASHBOARD">🏠 Dashboard</button>
+    <button class="tab" data-category="GT">📈 Grand Total</button>
+    <button class="tab" data-category="MOC">📞 MOC</button>
+    <button class="tab" data-category="MTC">📲 MTC</button>
+    <button class="tab" data-category="DATA">🌐 Data</button>
+    <button class="tab" data-category="SMS">✉️ SMS</button>
+  </nav>
+
+  <div class="filters">
+    <label>
+      Division
+      <select id="divisionFilter"><option value="">All Divisions</option></select>
+    </label>
+    <label>
+      District
+      <select id="districtFilter"><option value="">All Districts</option></select>
+    </label>
+    <label>
+      Upazila
+      <select id="upazilaFilter"><option value="">All Upazilas</option></select>
+    </label>
+    <label>
+      Month
+      <select id="monthFilter"></select>
+    </label>
+    <button id="applyFilters" class="apply-btn">Apply Filters</button>
+    <button id="downloadCsv" class="csv-btn">⬇ Download CSV</button>
+
+    <div class="table-search" id="siteSearchGroup">
+      <input type="text" id="siteSearch" class="site-search-input" placeholder="🔍 Search Site ID…" autocomplete="off">
+      <button id="siteSearchBtn" class="site-search-btn" title="Search">Search</button>
+      <button id="siteSearchClear" class="site-search-clear" title="Clear search" style="display:none;">✕</button>
+      <span id="searchMatchCount" class="search-match-count" style="display:none;"></span>
+    </div>
+  </div>
+
+  <div id="statusMessage" class="status-message" style="display:none;"></div>
+
+  <!-- ── Loading state ── shown immediately on tab click / Apply, hides stale content ── -->
+  <div id="loadingState" class="loading-state" style="display:none;">
+    <div class="spinner"></div>
+    <div id="loadingMessage" class="loading-message">Loading…</div>
+  </div>
+
+  <!-- ── Error state ── -->
+  <div id="errorState" class="error-state" style="display:none;">
+    <div class="error-icon">⚠</div>
+    <div id="errorMessage" class="error-message">Something went wrong.</div>
+    <button id="retryButton" class="retry-btn">Retry</button>
+  </div>
+
+  <!-- ── Dashboard view ── -->
+  <div id="dashboardView">
+    <div class="kpi-grid" id="kpiGrid"></div>
+
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-card-header">Daily Revenue Trend (GT)</div>
+        <div class="chart-card-body"><canvas id="dailyTrendChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-header">Total Revenue Share</div>
+        <div class="chart-card-body"><canvas id="shareChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="chart-card chart-card-wide">
+        <div class="chart-card-header">Division-wise Revenue &amp; Avg Revenue/Site</div>
+        <div class="chart-card-body"><canvas id="divisionChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Top 10 Districts by Revenue</span>
+      </div>
+      <div class="table-scroll">
+        <table id="districtTable">
+          <thead>
+            <tr>
+              <th class="sticky-col">District</th>
+              <th>Sites</th>
+              <th>Total Revenue</th>
+              <th>Avg Revenue / Site</th>
+            </tr>
+          </thead>
+          <tbody id="districtTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="dashboard-note">
+      Teletalk Bangladesh Ltd. Revenue data is sourced from the data warehouse and updated daily. For any discrepancies, please contact the IT department.
+    </p>
+  </div>
+
+  <!-- ── Site-level table view ── -->
+  <div class="card" id="tableView" style="display:none;">
+    <div class="card-header">
+      <span id="cardTitle">Grand Total Revenue</span>
+      <span class="count-badge" id="siteCount">0</span>
+    </div>
+
+    <div class="table-scroll">
+      <table id="revenueTable">
+        <thead>
+          <tr id="tableHeadRow">
+            <th class="sticky-col">Division</th>
+            <th class="sticky-col">District</th>
+            <th class="sticky-col">Upazila</th>
+            <th class="sticky-col">Site ID</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script src="/static/app.js?v=8"></script>
+</body>
+</html>

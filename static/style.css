@@ -1,0 +1,405 @@
+:root {
+  --green: #5a9a3c;
+  --green-dark: #4c8531;
+  --green-light: rgba(255,255,255,0.25);
+  --bg: #f2f3f5;
+  --card-bg: #ffffff;
+  --border: #e4e6ea;
+  --text-main: #2c2f33;
+  --text-muted: #7a8087;
+  --text-link: #3b7dd8;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+}
+
+/* ── Top bar ── */
+.topbar {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: #fff;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-title { display: flex; align-items: center; gap: 14px; }
+.topbar-icon {
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 22px;
+}
+.topbar-logo {
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+.topbar-logo img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+.topbar-title h1 { margin: 0; font-size: 20px; font-weight: 600; }
+.topbar-title p { margin: 2px 0 0; font-size: 13px; opacity: 0.9; }
+.live-pill {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .topbar { flex-wrap: wrap; gap: 10px; }
+  .topbar-logo img { height: 26px; }
+}
+
+/* ── Category tabs ── */
+.category-tabs {
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0 12px;
+}
+.tab {
+  border: none;
+  background: none;
+  padding: 14px 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+}
+.tab.active {
+  color: var(--green-dark);
+  font-weight: 600;
+  border-bottom: 3px solid var(--green);
+  background: #f4faf1;
+}
+.tab:hover:not(.active) { color: var(--text-main); }
+
+/* ── Filters ── */
+.filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  background: #fff;
+  padding: 14px 20px;
+  margin: 16px 20px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--text-muted);
+  gap: 4px;
+}
+.filters select {
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  min-width: 140px;
+}
+.apply-btn {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.apply-btn:hover:not(:disabled) { background: var(--green-dark); }
+.apply-btn:disabled { cursor: default; opacity: 0.9; }
+.apply-btn.processing { background: var(--text-muted); }
+.apply-btn.applied { background: #3b8a4c; }
+.csv-btn:disabled { opacity: 0.6; cursor: default; }
+.csv-btn {
+  background: #fff;
+  color: var(--green-dark);
+  border: 1px solid var(--green);
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.csv-btn:hover { background: #f4faf1; }
+
+/* ── Card ── */
+.card {
+  background: var(--card-bg);
+  margin: 16px 20px 24px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.card-header {
+  background: var(--green);
+  color: #fff;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 15px;
+}
+.count-badge {
+  background: var(--green-light);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 13px;
+}
+
+/* ── Site ID search (sits in the top filters bar, pushed to the far right) ── */
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  margin-left: auto;
+}
+.site-search-input {
+  width: 200px;
+  max-width: 320px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+  background: #fff;
+  color: var(--text-main);
+}
+.site-search-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+.site-search-btn {
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.site-search-btn:hover { background: var(--green-dark); }
+.site-search-clear {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.site-search-clear:hover { background: var(--border); }
+.search-match-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .table-search { margin-left: 0; width: 100%; }
+}
+tbody tr.row-highlight td {
+  background: #fff3b0 !important;
+}
+tbody tr.row-highlight td.sticky-col {
+  background: #ffe97a !important;
+  font-weight: 600;
+}
+
+.status-message {
+  padding: 14px 18px;
+  font-size: 13px;
+  color: #a15c00;
+  background: #fff7e6;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Loading state ── */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 40px 20px;
+  padding: 60px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-message { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+
+/* ── Error state ── */
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 40px 20px;
+  padding: 48px 20px;
+  background: #fff5f4;
+  border: 1px solid #f3c9c4;
+  border-radius: 10px;
+}
+.error-icon { font-size: 26px; }
+.error-message { font-size: 14px; color: #9a3b32; text-align: center; max-width: 480px; }
+.retry-btn {
+  background: #c94a3d;
+  color: #fff;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+}
+.retry-btn:hover { background: #ad3e33; }
+
+/* ── Table ── */
+.table-scroll { overflow-x: auto; max-height: 70vh; overflow-y: auto; }
+/* border-collapse: collapse (previous) merges each cell's border into a
+   single shared line owned by the table/row rather than the cell itself.
+   With sticky-positioned columns that shared border sits in its own paint
+   layer, so on fast horizontal scroll a sliver of whatever non-sticky
+   column is currently scrolling underneath can flash through right at
+   the sticky column's edge. border-separate keeps each cell (including
+   its border) fully self-contained in its own background, which is what
+   the sticky column relies on to actually cover the columns behind it. */
+table { border-collapse: separate; border-spacing: 0; width: 100%; font-size: 13px; }
+thead th {
+  position: sticky;
+  top: 0;
+  background: #f7f8fa;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: right;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  z-index: 2;
+}
+thead th.sticky-col { text-align: left; }
+tbody td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-main);
+}
+tbody td.sticky-col { text-align: left; color: var(--text-muted); }
+tbody tr:hover { background: #f4faf1; }
+
+.sticky-col {
+  position: sticky;
+  background: #fff;
+  background-clip: padding-box;
+  z-index: 1;
+  /* Fixed widths (below) mean text can occasionally be longer than the
+     column — clip it instead of letting the row grow/wrap and throw the
+     sticky math off again. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+th.sticky-col { background: #f7f8fa; z-index: 3; }
+/* These left offsets are only correct if every sticky column's actual
+   rendered width matches exactly — previously only "left" was pinned,
+   not "width", so a column that naturally needed more/less than the
+   assumed 110px (e.g. a longer Upazila name) would silently misalign
+   every sticky column after it. Content that grows past the fixed width
+   just shows "…" (via text-overflow above) instead of breaking the
+   layout. */
+.sticky-col:nth-child(1) { left: 0;      width: 100px; min-width: 100px; max-width: 100px; }
+.sticky-col:nth-child(2) { left: 100px;  width: 100px; min-width: 100px; max-width: 100px; }
+.sticky-col:nth-child(3) { left: 200px;  width: 110px; min-width: 110px; max-width: 110px; }
+.sticky-col:nth-child(4) { left: 310px;  width: 120px; min-width: 120px; max-width: 120px; box-shadow: 2px 0 4px rgba(0,0,0,0.06); }
+
+/* ── Dashboard ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 16px 20px 0;
+}
+.kpi-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--green);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: var(--text-main); }
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 20px 0;
+}
+.chart-card-wide { grid-column: 1 / -1; }
+.chart-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.chart-card-header {
+  background: #f7f8fa;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.chart-card-body { padding: 16px; height: 280px; position: relative; }
+
+.dashboard-note {
+  margin: 16px 20px 24px;
+  font-size: 12px;
+  color: #ffffff;
+  background: #5a9a3c;
+  border: 1px solid #fbfaf7;
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .chart-grid { grid-template-columns: 1fr; }
+}
