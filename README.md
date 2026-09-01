@@ -6,7 +6,7 @@ A live Flask + Oracle web portal that replaces a manual `BTS-Wise_Total_Revenue.
 
 ## 📸 Screenshots
 
-| Dashboard-front view | Dashboard-upside view |
+| Dashboard-upside view | Dashboard-downside view |
 |---|---|
 | ![Report screenshot](docs/dashboard.webp) | ![Dashboard screenshot](docs/dashboard2.webp) |
 | Grand Total | Filter |
