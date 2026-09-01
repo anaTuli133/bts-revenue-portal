@@ -4,16 +4,6 @@ A live Flask + Oracle web portal that replaces a manual `BTS-Wise_Total_Revenue.
 
 ---
 
-## 📸 Screenshots
-
-| Dashboard-upside view | Dashboard-downside view |
-|---|---|
-| ![Report screenshot](docs/dashboard.webp) | ![Dashboard screenshot](docs/dashboard2.webp) |
-| Grand Total | Filter |
-| ![Report screenshot](docs/gt.webp) | ![Dashboard screenshot](docs/filter.webp) |
-
----
-
 ## ✨ Features
 
 - **Site × Day revenue pivot** across 5 categories — GT (Grand Total), MOC, MTC, Data, SMS
